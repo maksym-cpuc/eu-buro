@@ -3,7 +3,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-BRAND = "Название бюро"
+BRAND = "Nexora"
 TG = "@buro_placeholder"
 WA = "+XX XXX XXX XXX"
 MAIL = "info@example.com"
@@ -22,7 +22,7 @@ HEAD = """<!doctype html>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="draft">Черновик · название, юрлицо, юристы и контакты пока заглушки</div>
+<div class="draft">Черновик · контакты пока заглушки</div>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="index.html"><i></i>{brand}</a>
@@ -52,7 +52,7 @@ HEAD = """<!doctype html>
 FOOT = """</main>
 <footer>
   <div class="wrap">
-    <div style="display:grid;gap:10px"><span class="logo"><i></i>{brand}</span><span>Сопровождение от первого ВНЖ до гражданства в странах Европы. Работаем дистанционно.</span><span class="ph">Юрлицо и реквизиты: заглушка</span></div>
+    <div style="display:grid;gap:10px"><span class="logo"><i></i>{brand}</span><span>Сопровождение от первого ВНЖ до гражданства в странах Европы. Работаем дистанционно.</span><span>DANA LEGAL CONSULTING S.L. · NIF B09790213</span><span>Avenida Cánovas del Castillo, 14, 1º derecha, Marbella</span></div>
     <nav><a href="services.html">Услуги ВНЖ</a><a href="about.html">О бюро</a><a href="contacts.html">Контакты</a></nav>
     <div style="display:grid;gap:8px"><span>Telegram {tg}</span><span>WhatsApp {wa}</span><span>{mail}</span></div>
   </div>
@@ -68,7 +68,7 @@ FORM = """<section id="form">
       <div class="txt">
         <span class="eyebrow">Бесплатно и без обязательств</span>
         <h2>Подберём страну и основание <em>под вашу ситуацию</em></h2>
-        <p class="muted">Расскажите коротко, откуда вы, чем занимаетесь и куда хотите переехать. Юрист разберёт ситуацию, назовёт рабочие варианты и первые шаги. Ответим в течение рабочего дня.</p>
+        <p class="muted">Расскажите коротко, откуда вы, чем занимаетесь и куда хотите переехать. Специалист разберёт ситуацию, назовёт рабочие варианты и первые шаги. Ответим в течение рабочего дня.</p>
         <p class="muted">Общаемся по-русски и по-испански.</p>
       </div>
       <div>
@@ -120,7 +120,7 @@ INDEX = f"""<section class="hero">
     <p class="lead">Подбираем страну и основание для ВНЖ, помогаем накопить нужный срок проживания, собираем досье, готовим к экзаменам и подаём на гражданство. Работаем дистанционно с клиентами по всему миру.</p>
     <div class="note-box"><b>Сложный случай?</b> Отказ в прошлом, доход сложно подтвердить, нет истории поездок. Это повод для бесплатного разбора, а не для отказа.</div>
     <div class="actions"><a class="btn" href="contacts.html#form">Подобрать ВНЖ бесплатно</a><a class="btn ghost" href="services.html">Все услуги</a></div>
-    <div class="trust"><span>Договор до оплаты</span><span>Оплата по этапам</span><span>Ведёт юрист, без колл-центра</span><span>По-русски и по-испански</span></div>
+    <div class="trust"><span>Договор до оплаты</span><span>Оплата по этапам</span><span>Один специалист на всё дело, без колл-центра</span><span>По-русски и по-испански</span></div>
   </div>
 </section>
 
@@ -236,11 +236,14 @@ ABOUT = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> · 
   <div class="wrap">
     <div class="head rv"><h2>Кто мы <em>юридически</em></h2></div>
     <dl class="kv rv">
-      <div><dt>Компания</dt><dd>Название юрлица и страна регистрации <span class="ph">заглушка</span></dd></div>
-      <div><dt>Где мы</dt><dd>Работаем дистанционно с клиентами по всему миру</dd></div>
+      <div><dt>Компания</dt><dd>DANA LEGAL CONSULTING S.L., зарегистрирована в Испании в форме S.L. в 2024 году</dd></div>
+      <div><dt>NIF</dt><dd>B09790213</dd></div>
+      <div><dt>Адрес</dt><dd>Avenida Cánovas del Castillo, 14, 1º derecha, Marbella</dd></div>
+      <div><dt>Администратор</dt><dd>Dan Anders Hjortsoe</dd></div>
+      <div><dt>Деятельность</dt><dd>Юридические услуги, миграционные и административные процедуры, наследство и недвижимость</dd></div>
+      <div><dt>Где мы</dt><dd>Марбелья, Испания. С клиентами работаем дистанционно по всему миру</dd></div>
       <div><dt>Языки</dt><dd>С вами по-русски и по-испански, с ведомствами на языке страны подачи</dd></div>
       <div><dt>Связь</dt><dd>Telegram, WhatsApp, почта, см. <a href="contacts.html">контакты</a></dd></div>
-      <div><dt>Юристы</dt><dd>Практикующие юристы-партнёры в странах подачи <span class="ph">имена и номера в реестре: заглушка</span></dd></div>
     </dl>
   </div>
 </section>
