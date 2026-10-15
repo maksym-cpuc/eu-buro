@@ -19,7 +19,8 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=portrait-1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="assets/style.css?v=docs-1">
 </head>
 <body>
 <div class="draft">Черновик · контакты пока заглушки</div>
@@ -57,7 +58,7 @@ FOOT = """</main>
     <div style="display:grid;gap:8px"><span>Telegram {tg}</span><span>WhatsApp {wa}</span><span>{mail}</span></div>
   </div>
 </footer>
-<script src="assets/main.js?v=portrait-1"></script>
+<script src="assets/main.js?v=docs-1"></script>
 </body>
 </html>
 """
@@ -95,8 +96,8 @@ PATH = """<ol class="path">
   <li class="rv"><h3>Подача на гражданство</h3><p>Подаём заявление, отвечаем на запросы ведомства и ведём дело до решения.</p></li>
 </ol>"""
 
-COUNTRIES = [("🇪🇸","Испания"),("🇵🇹","Португалия"),("🇮🇹","Италия"),("🇫🇷","Франция"),("🇩🇪","Германия"),("🇳🇱","Нидерланды"),("🇦🇹","Австрия"),("🇬🇷","Греция"),("🇨🇾","Кипр"),("🇲🇹","Мальта"),("🇭🇷","Хорватия"),("🇸🇰","Словакия"),("🇨🇿","Чехия"),("🇵🇱","Польша"),("🇭🇺","Венгрия"),("🇲🇪","Черногория"),("🇷🇸","Сербия")]
-COUNTRY_GRID = '<div class="countries rv">' + "".join(f'<a class="country" href="services.html#countries"><span class="fl">{f}</span>{n}</a>' for f, n in COUNTRIES) + '<a class="country more" href="contacts.html#form"><span class="fl">＋</span>Другие страны Европы</a></div>'
+COUNTRIES = [("es","Испания"),("pt","Португалия"),("it","Италия"),("fr","Франция"),("de","Германия"),("nl","Нидерланды"),("at","Австрия"),("gr","Греция"),("cy","Кипр"),("mt","Мальта"),("hr","Хорватия"),("sk","Словакия"),("cz","Чехия"),("pl","Польша"),("hu","Венгрия"),("me","Черногория"),("rs","Сербия")]
+COUNTRY_GRID = '<div class="countries rv">' + "".join(f'<a class="country" href="services.html#countries"><span class="fl fi fi-{f}"></span>{n}</a>' for f, n in COUNTRIES) + '<a class="country more" href="contacts.html#form"><span class="fl plus">+</span>Другие страны</a></div>'
 
 PAY = """<div class="pay">
   <div class="rv"><small>Этап 1 · старт</small><b>50%</b><p class="muted">Берём дело в работу: стратегия, расчёт требований, список документов.</p></div>
@@ -113,7 +114,7 @@ STEPS = """<ol class="steps">
   <li class="rv"><span class="n">5</span><div><h3>ВНЖ и дальше</h3><p>Ведём по календарю: продления, накопление срока, экзамены и подача на гражданство.</p></div></li>
 </ol>"""
 
-INDEX = f"""<script defer src="assets/hero-motion.js?v=portrait-1"></script>
+INDEX = f"""<script defer src="assets/hero-motion.js?v=docs-1"></script>
 <section class="hero hero-portrait">
   <div class="wrap hero-layout">
     <div class="hero-copy">
@@ -121,35 +122,60 @@ INDEX = f"""<script defer src="assets/hero-motion.js?v=portrait-1"></script>
     <h1>От первого ВНЖ до паспорта Европы, <em>даже в сложных случаях</em></h1>
     <p class="lead">Подбираем страну и основание для ВНЖ, помогаем накопить нужный срок проживания, собираем досье, готовим к экзаменам и подаём на гражданство. Работаем дистанционно с клиентами по всему миру.</p>
     <div class="actions"><a class="btn" href="contacts.html#form">Подобрать ВНЖ бесплатно</a><a class="btn ghost" href="services.html">Все услуги</a></div>
-    <div class="note-box"><b>Сложный случай?</b> Отказ в прошлом, доход сложно подтвердить, нет истории поездок. Это повод для бесплатного разбора, а не для отказа.</div>
-    <div class="trust"><span>Договор до оплаты</span><span>Оплата по этапам</span><span>Один специалист на всё дело, без колл-центра</span><span>По-русски и по-испански</span></div>
     </div>
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-halo"></div>
-      <div class="hero-person">
-        <img src="assets/hero-advisor-1024.webp" srcset="assets/hero-advisor-640.webp 640w, assets/hero-advisor-1024.webp 1024w" sizes="(max-width: 759px) 92vw, (max-width: 1100px) 44vw, 520px" width="1024" height="1536" alt="" fetchpriority="high" decoding="async">
+      <div class="hero-enter">
+        <div class="hero-person">
+          <img src="assets/hero-advisor-1024.webp" srcset="assets/hero-advisor-640.webp 640w, assets/hero-advisor-1024.webp 1024w" sizes="(max-width: 759px) 92vw, (max-width: 1100px) 44vw, 520px" width="1024" height="1536" alt="" fetchpriority="high" decoding="async">
+        </div>
+      </div>
+      <div class="hero-docs">
+        <div class="doc-slot"><div class="doc doc-card">
+          <span class="stars"></span>
+          <span class="chip"></span>
+          <b>Residencia</b>
+          <small>Permiso de residencia y trabajo</small>
+          <span class="photo"></span>
+          <em>Válido hasta <strong>2031</strong></em>
+        </div></div>
+        <div class="doc-slot"><div class="doc doc-passport">
+          <span class="stars"></span>
+          <b>Unión Europea</b>
+          <small>Pasaporte</small>
+        </div></div>
+        <div class="doc-slot"><div class="doc doc-contract">
+          <b>Contrato</b>
+          <small>de prestación de servicios</small>
+          <p>Primera. Objeto. El bufete asume la preparación del expediente de residencia y su presentación ante la administración competente.</p>
+          <p>Segunda. Honorarios. El pago se realiza por etapas: inicio, presentación y resolución favorable.</p>
+          <svg class="sign" viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 30c10-18 18-22 20-12s-6 18-2 16 12-26 18-20-2 22 6 14 14-20 22-10 4 18 12 8 10-14 18-6 8 10 16 4"/></svg>
+          <span class="stamp">N</span>
+        </div></div>
       </div>
     </div>
   </div>
 </section>
+<div class="wrap"><div class="trust-bar rv"><span>Договор до оплаты</span><span>Оплата по этапам</span><span>Один специалист на всё дело, без колл-центра</span><span>По-русски и по-испански</span></div></div>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Весь путь в одном бюро</span><h2>Пять этапов <em>до гражданства</em></h2><p>Можно прийти на любом этапе: только начинаете или уже живёте в Европе и готовитесь к подаче на паспорт.</p></div>
+    <div class="head rv"><h2>Пять этапов <em>до гражданства</em></h2><p>Можно прийти на любом этапе: только начинаете или уже живёте в Европе и готовитесь к подаче на паспорт.</p></div>
     {PATH}
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">География</span><h2>Работаем по всем <em>странам Европы</em></h2><p>Не привязаны к одной стране. Если в одной требования не подходят, сравним условия соседних и предложим путь надёжнее.</p></div>
+    <div class="head rv"><h2>Работаем по всем <em>странам Европы</em></h2><p>Не привязаны к одной стране. Если в одной требования не подходят, сравним условия соседних и предложим путь надёжнее.</p></div>
     {COUNTRY_GRID}
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Наша обычная работа</span><h2>Кажется, что вы <em>не подходите?</em></h2><p>Мы разбираем ситуацию и ищем законное основание и страну, требованиям которых она отвечает. Решение всегда за ведомством, поэтому одобрение не обещаем, но за свою работу отвечаем.</p></div>
+    <div class="head rv"><h2>Кажется, что вы <em>не подходите?</em></h2><p>Мы разбираем ситуацию и ищем законное основание и страну, требованиям которых она отвечает. Решение всегда за ведомством, поэтому одобрение не обещаем, но за свою работу отвечаем.</p>
+    <div class="note-box"><b>Сложный случай?</b> Отказ в прошлом, доход сложно подтвердить, нет истории поездок. Это повод для бесплатного разбора, а не для отказа.</div></div>
     <div class="cases">
       <div class="case rv"><h3>«Не понимаю, какая страна мне подходит»</h3><p>Сравниваем требования к доходу, срокам до гражданства, языку и налогам. Показываем два или три реальных варианта, а не один «универсальный».</p></div>
       <div class="case rv"><h3>«Доход есть, но подтвердить его сложно»</h3><p>Работаем с самозанятыми и доходом из нескольких источников. Собираем договоры, выписки и декларации так, чтобы их приняли.</p></div>
@@ -163,21 +189,21 @@ INDEX = f"""<script defer src="assets/hero-motion.js?v=portrait-1"></script>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Оплата привязана к результату</span><h2>Пакет «под ключ», <em>оплата в три этапа</em></h2></div>
+    <div class="head rv"><h2>Пакет «под ключ», <em>оплата в три этапа</em></h2></div>
     {PAY}
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Прозрачно</span><h2>Как проходит <em>работа</em></h2></div>
+    <div class="head rv"><h2>Как проходит <em>работа</em></h2></div>
     {STEPS}
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Вопросы</span><h2>Частые <em>вопросы</em></h2></div>
+    <div class="head rv"><h2>Частые <em>вопросы</em></h2></div>
     <div class="faq rv">
       <details><summary>Сколько стоит сопровождение?</summary><p>Зависит от страны и этапа. Точную сумму называем после бесплатного разбора, оплата идёт по этапам.</p></details>
       <details><summary>Сколько лет до гражданства?</summary><p>В большинстве стран Европы от 5 до 10 лет легального проживания. Срок, требования к языку и интеграции у каждой страны свои, на разборе посчитаем именно ваш.</p></details>
