@@ -74,6 +74,45 @@ section{padding-block:clamp(56px,9vw,104px)}
 .trust{display:flex;flex-wrap:wrap;gap:10px 22px;color:var(--muted);font-size:14px}
 .trust span::before{content:"✓";color:var(--gold);margin-right:8px}
 
+/* Портрет на главной: отдельный слой для лёгкого поворота при скролле. */
+.hero-portrait{padding-block:36px 64px;isolation:isolate}
+.hero-portrait .hero-layout{grid-template-columns:minmax(0,1.16fr) minmax(0,1fr);gap:16px;align-items:center}
+.hero-copy{position:relative;z-index:2;display:grid;gap:18px;min-width:0}
+.hero-portrait h1{font-size:clamp(38px,4vw,56px);line-height:1.1;max-width:20ch;text-wrap:initial}
+.hero-portrait h1 em{display:block;margin-top:8px}
+.hero-portrait .lead{font-size:17px;line-height:1.65;max-width:55ch}
+.hero-portrait .note-box{font-size:14px;padding:12px 16px}
+.hero-portrait .trust{font-size:12px;gap:8px 16px}
+.hero-visual{position:relative;min-width:0;align-self:stretch;min-height:620px;perspective:1200px;pointer-events:none}
+.hero-halo{position:absolute;inset:2% -15% 0;background:radial-gradient(ellipse at 55% 40%,rgba(216,178,106,.19),transparent 65%)}
+.hero-person{position:absolute;inset:0 -5% 0 -8%;transform-origin:55% 65%;backface-visibility:hidden}
+.hero-person img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;mask-image:linear-gradient(to bottom,transparent,#000 4%,#000 80%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 4%,#000 80%,transparent 100%)}
+@media (min-width:1440px){.hero-portrait .hero-layout{max-width:1320px}.hero-portrait h1{font-size:64px}.hero-visual{min-height:700px}}
+@media (min-width:760px) and (max-width:1000px){
+  .hero-portrait .hero-layout{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+  .hero-portrait h1{font-size:40px}
+  .hero-portrait .badge{font-size:11px;padding-inline:10px}
+  .hero-person{inset:0 -12% 0 -12%}
+  .hero-person img{object-position:center 15%}
+}
+@media (max-width:759px){
+  .hero-portrait{padding-block:32px 44px}
+  .hero-portrait .hero-layout{grid-template-columns:1fr;gap:0}
+  .hero-copy{display:contents}
+  .hero-copy>.badge{grid-row:1;margin-bottom:20px;font-size:11px;padding:7px 11px}
+  .hero-copy>h1{grid-row:2;font-size:clamp(34px,6.8vw,48px);max-width:23ch}
+  .hero-visual{grid-row:4;min-height:0;height:clamp(320px,100vw,480px);margin-top:12px;margin-bottom:-20px}
+  .hero-person{inset:0;max-width:420px;margin-inline:auto}
+  .hero-person img{object-position:center top}
+  .hero-copy>.lead{grid-row:5;margin-bottom:20px;font-size:16px}
+  .hero-copy>.note-box{grid-row:6;margin-top:20px}
+  .hero-copy>.actions{grid-row:3;gap:10px;margin-top:20px}
+  .hero-copy>.trust{grid-row:7;margin-top:20px}
+  .hero-portrait .actions .btn{padding-inline:18px}
+}
+@media (max-width:380px){.hero-portrait .actions .btn{width:100%}}
+@media (prefers-reduced-motion:reduce){.hero-person,.hero-halo{transform:none!important;will-change:auto!important}}
+
 /* путь клиента */
 .path{display:grid;gap:12px;counter-reset:p}
 @media (min-width:900px){.path{grid-template-columns:repeat(5,1fr)}}

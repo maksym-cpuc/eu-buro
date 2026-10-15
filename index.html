@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=portrait-1">
 </head>
 <body>
 <div class="draft">Черновик · контакты пока заглушки</div>
@@ -37,14 +37,23 @@
   </nav>
 </div>
 <main>
-<section class="hero">
-  <div class="wrap">
+<script defer src="assets/hero-motion.js?v=portrait-1"></script>
+<section class="hero hero-portrait">
+  <div class="wrap hero-layout">
+    <div class="hero-copy">
     <span class="badge"><i></i>ВНЖ и гражданство в странах Европы</span>
     <h1>От первого ВНЖ до паспорта Европы, <em>даже в сложных случаях</em></h1>
     <p class="lead">Подбираем страну и основание для ВНЖ, помогаем накопить нужный срок проживания, собираем досье, готовим к экзаменам и подаём на гражданство. Работаем дистанционно с клиентами по всему миру.</p>
-    <div class="note-box"><b>Сложный случай?</b> Отказ в прошлом, доход сложно подтвердить, нет истории поездок. Это повод для бесплатного разбора, а не для отказа.</div>
     <div class="actions"><a class="btn" href="contacts.html#form">Подобрать ВНЖ бесплатно</a><a class="btn ghost" href="services.html">Все услуги</a></div>
+    <div class="note-box"><b>Сложный случай?</b> Отказ в прошлом, доход сложно подтвердить, нет истории поездок. Это повод для бесплатного разбора, а не для отказа.</div>
     <div class="trust"><span>Договор до оплаты</span><span>Оплата по этапам</span><span>Один специалист на всё дело, без колл-центра</span><span>По-русски и по-испански</span></div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-halo"></div>
+      <div class="hero-person">
+        <img src="assets/hero-advisor-1024.webp" srcset="assets/hero-advisor-640.webp 640w, assets/hero-advisor-1024.webp 1024w" sizes="(max-width: 759px) 92vw, (max-width: 1100px) 44vw, 520px" width="1024" height="1536" alt="" fetchpriority="high" decoding="async">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -150,6 +159,6 @@
     <div style="display:grid;gap:8px"><span>Telegram @buro_placeholder</span><span>WhatsApp +XX XXX XXX XXX</span><span>info@example.com</span></div>
   </div>
 </footer>
-<script src="assets/main.js"></script>
+<script src="assets/main.js?v=portrait-1"></script>
 </body>
 </html>
