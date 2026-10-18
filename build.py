@@ -1,35 +1,44 @@
 #!/usr/bin/env python3
-"""Собирает 4 страницы черновика из общих шапки, меню и подвала. Запуск: python3 build.py"""
+"""Собирает страницы Nexora из общих шапки, меню и подвала. Запуск: python3 build.py"""
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 BRAND = "Nexora"
-TG = "@buro_placeholder"
-WA = "+XX XXX XXX XXX"
-MAIL = "info@example.com"
+TG = "@Nexora_Dana"
+TG_URL = "https://t.me/Nexora_Dana"
+WA = "+34 684 748 027"
+WA_URL = "https://wa.me/34684748027"
+DOMAIN = "https://nexora-dana.eu"
 
 HEAD = """<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<title>{title}</title>
+<meta name="robots" content="index,follow">
+<title>{title} — {brand}</title>
 <meta name="description" content="{desc}">
+<link rel="canonical" href="{canonical}">
+<meta name="theme-color" content="#0E0F13">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="{title} — {brand}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="assets/style.css?v=docs-1">
+<link rel="stylesheet" href="assets/style.css?v=live-1">
 </head>
 <body>
-<div class="draft">Черновик · контакты пока заглушки</div>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="index.html"><i></i>{brand}</a>
-    <div class="lang" aria-label="Языки общения"><span class="on">RU</span><span>ES</span></div>
-    <a class="ico" href="https://t.me/" aria-label="Telegram">✈</a>
-    <a class="ico" href="contacts.html" aria-label="WhatsApp">☏</a>
+    <div class="lang" aria-label="Общаемся по-русски и по-испански"><span>RU / ES</span></div>
+    <a class="ico" href="{tg_url}" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">✈</a>
+    <a class="ico" href="{wa_url}" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp">☏</a>
     <a class="btn sm" href="contacts.html#form">Подобрать ВНЖ</a>
     <button class="burger" type="button" aria-label="Меню" aria-expanded="false"><span></span></button>
   </div>
@@ -39,10 +48,11 @@ HEAD = """<!doctype html>
     <div class="menu-head"><span class="logo"><i></i>{brand}</span><button class="menu-close" type="button" aria-label="Закрыть">×</button></div>
     <a class="item" href="services.html"><span>Услуги ВНЖ<small>По всем странам Европы</small></span>→</a>
     <a class="item" href="about.html"><span>О бюро<small>Кто мы и как работаем</small></span>→</a>
-    <a class="item" href="contacts.html"><span>Контакты<small>Telegram, WhatsApp, почта</small></span>→</a>
+    <a class="item" href="contacts.html"><span>Контакты<small>Telegram и WhatsApp</small></span>→</a>
     <div class="menu-foot">
       <a class="btn" href="contacts.html#form">Бесплатный разбор</a>
-      <span>Telegram {tg}</span>
+      <a href="{tg_url}" target="_blank" rel="noopener noreferrer">Telegram {tg}</a>
+      <a href="{wa_url}" target="_blank" rel="noopener noreferrer">WhatsApp {wa}</a>
       <span>Общаемся по-русски и по-испански</span>
     </div>
   </nav>
@@ -55,10 +65,10 @@ FOOT = """</main>
   <div class="wrap">
     <div style="display:grid;gap:10px"><span class="logo"><i></i>{brand}</span><span>Сопровождение от первого ВНЖ до гражданства в странах Европы. Работаем дистанционно.</span><span>DANA LEGAL CONSULTING S.L. · NIF B09790213</span><span>Avenida Cánovas del Castillo, 14, 1º derecha, Marbella</span></div>
     <nav><a href="services.html">Услуги ВНЖ</a><a href="about.html">О бюро</a><a href="contacts.html">Контакты</a></nav>
-    <div style="display:grid;gap:8px"><span>Telegram {tg}</span><span>WhatsApp {wa}</span><span>{mail}</span></div>
+    <div style="display:grid;gap:8px"><a href="{tg_url}" target="_blank" rel="noopener noreferrer">Telegram {tg}</a><a href="{wa_url}" target="_blank" rel="noopener noreferrer">WhatsApp {wa}</a></div>
   </div>
 </footer>
-<script src="assets/main.js?v=docs-1"></script>
+<script src="assets/main.js?v=live-1"></script>
 </body>
 </html>
 """
@@ -73,15 +83,14 @@ FORM = """<section id="form">
         <p class="muted">Общаемся по-русски и по-испански.</p>
       </div>
       <div>
-        <form class="lead" novalidate>
-          <label for="{p}-name">Как к вам обращаться<input id="{p}-name" name="name" type="text" placeholder="Имя"></label>
-          <label for="{p}-way">Где удобнее общаться<select id="{p}-way" name="way"><option>Telegram</option><option>WhatsApp</option><option>Телефон</option><option>Email</option></select></label>
-          <label for="{p}-contact">Ваш контакт<input id="{p}-contact" name="contact" type="text" placeholder="@ник, номер или почта"></label>
-          <label class="check" for="{p}-consent"><input id="{p}-consent" name="consent" type="checkbox">Согласен на обработку персональных данных. Контакт нужен только для ответа на заявку.</label>
-          <p class="form-error" hidden></p>
-          <button class="btn" type="submit">Получить разбор</button>
+        <form class="lead" action="{wa_url}" method="get" target="_blank" rel="noopener noreferrer">
+          <label for="{p}-name">Как к вам обращаться<input id="{p}-name" name="name" type="text" autocomplete="given-name" maxlength="100" placeholder="Имя"></label>
+          <label for="{p}-situation">Коротко о вашей ситуации<textarea id="{p}-situation" name="situation" rows="4" maxlength="2000" placeholder="Где живёте, куда хотите переехать и какая помощь нужна"></textarea></label>
+          <p class="form-note" id="{p}-note">Откроется WhatsApp с текстом заявки. Нажмите «Отправить» в чате, чтобы передать её специалисту.</p>
+          <button class="btn" type="submit" aria-describedby="{p}-note">Продолжить в WhatsApp</button>
+          <a class="form-alternative" href="{tg_url}" target="_blank" rel="noopener noreferrer">Или написать в Telegram →</a>
         </form>
-        <div class="ok" hidden><b>Спасибо! Мы скоро напишем.</b><small>Это прототип: данные никуда не отправляются.</small></div>
+        <noscript><p><a href="{wa_url}">Написать напрямую в WhatsApp</a></p></noscript>
       </div>
     </div>
   </div>
@@ -104,7 +113,7 @@ PAY = """<div class="pay">
   <div class="rv"><small>Этап 2 · подача</small><b>+25%</b><p class="muted">Когда документы подготовлены и поданы.</p></div>
   <div class="rv"><small>Этап 3 · результат</small><b>+25%</b><p class="muted">Только после положительного решения.</p></div>
 </div>
-<p class="pay-note">Этапы и суммы фиксируем в договоре до первой оплаты. Госпошлины, переводы и легализацию документов оплачиваете отдельно, по квитанциям. Стоимость называем после бесплатного разбора. <span class="ph">Схему оплаты и условия возврата уточнить</span></p>"""
+<p class="pay-note">Этапы, суммы и условия возврата фиксируем в договоре до первой оплаты. Госпошлины, переводы и легализацию документов оплачиваете отдельно, по квитанциям. Стоимость называем после бесплатного разбора.</p>"""
 
 STEPS = """<ol class="steps">
   <li class="rv"><span class="n">1</span><div><h3>Бесплатный разбор</h3><p>Смотрим гражданство, доход, семью и цели. Честно говорим, какие варианты реальны, а какие нет.</p></div></li>
@@ -278,7 +287,7 @@ ABOUT = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> · 
       <div><dt>Деятельность</dt><dd>Юридические услуги, миграционные и административные процедуры, наследство и недвижимость</dd></div>
       <div><dt>Где мы</dt><dd>Марбелья, Испания. С клиентами работаем дистанционно по всему миру</dd></div>
       <div><dt>Языки</dt><dd>С вами по-русски и по-испански, с ведомствами на языке страны подачи</dd></div>
-      <div><dt>Связь</dt><dd>Telegram, WhatsApp, почта, см. <a href="contacts.html">контакты</a></dd></div>
+      <div><dt>Связь</dt><dd>Telegram и WhatsApp, см. <a href="contacts.html">контакты</a></dd></div>
     </dl>
   </div>
 </section>
@@ -331,10 +340,9 @@ CONTACTS = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> 
 <section style="padding-top:0">
   <div class="wrap">
     <div class="contacts rv">
-      <div><small>Telegram</small><b>{TG}</b></div>
-      <div><small>WhatsApp</small><b>{WA}</b></div>
-      <div><small>Почта</small><b>{MAIL}</b></div>
-      <div><small>Часы работы</small><b>Пн-Пт, 10:00-19:00</b><span class="ph">часовой пояс: уточнить</span></div>
+      <div><small>Telegram</small><b><a href="{TG_URL}" target="_blank" rel="noopener noreferrer">{TG}</a></b><span>Написать специалисту</span></div>
+      <div><small>WhatsApp</small><b><a href="{WA_URL}" target="_blank" rel="noopener noreferrer">{WA}</a></b><span>Обсудить вашу ситуацию</span></div>
+      <div><small>Формат работы</small><b>Дистанционно</b><span>По-русски и по-испански</span></div>
     </div>
   </div>
 </section>
@@ -342,12 +350,17 @@ CONTACTS = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> 
 
 
 def page(name, title, desc, body, form_prefix):
-    html = HEAD.format(title=title, desc=desc, brand=BRAND, tg=TG) + body + FORM.format(p=form_prefix) + FOOT.format(brand=BRAND, tg=TG, wa=WA, mail=MAIL)
+    contact = dict(brand=BRAND, tg=TG, tg_url=TG_URL, wa=WA, wa_url=WA_URL)
+    canonical = DOMAIN + ("/" if name == "index.html" else "/" + name)
+    html = HEAD.format(title=title, desc=desc, canonical=canonical, **contact) + body + FORM.format(p=form_prefix, **contact) + FOOT.format(**contact)
     (ROOT / name).write_text(html, encoding="utf-8")
 
 
 page("index.html", "ВНЖ и гражданство в Европе", "Подбор ВНЖ, накопление срока, досье, экзамены и подача на гражданство во всех странах Европы.", INDEX, "i")
 page("services.html", "Услуги ВНЖ в Европе", "Полный путь от ВНЖ до гражданства в странах Европы.", SERVICES, "s")
 page("about.html", "О бюро", "Кто мы, принципы и порядок работы.", ABOUT, "a")
-page("contacts.html", "Контакты бюро", "Telegram, WhatsApp, почта и форма бесплатного разбора.", CONTACTS, "c")
+page("contacts.html", "Контакты бюро", "Свяжитесь с Nexora через Telegram или WhatsApp для бесплатного разбора вашей ситуации.", CONTACTS, "c")
+(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
+urls = [DOMAIN + suffix for suffix in ["/", "/services.html", "/about.html", "/contacts.html"]]
+(ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{url}</loc></url>\n" for url in urls) + "</urlset>\n", encoding="utf-8")
 print("ok")

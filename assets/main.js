@@ -17,14 +17,22 @@
     els.forEach(function(el){io.observe(el)});
   }else{els.forEach(function(el){el.classList.add('in')})}
 
-  // форма (прототип: никуда не отправляет)
+  // Заявка открывается в WhatsApp; посетитель сам отправляет сообщение в чате.
   document.querySelectorAll('form.lead').forEach(function(f){
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var c=f.querySelector('[name=contact]').value.trim(),err=f.querySelector('.form-error');
-      if(!c){err.textContent='Оставьте контакт, чтобы мы могли ответить.';err.hidden=false;return}
-      if(!f.querySelector('[name=consent]').checked){err.textContent='Отметьте согласие на обработку данных.';err.hidden=false;return}
-      err.hidden=true;f.hidden=true;f.nextElementSibling.hidden=false;
+      var name=f.elements.name.value.trim();
+      var situation=f.elements.situation.value.trim();
+      var lines=['Здравствуйте! Хочу получить бесплатный разбор в Nexora.'];
+      if(name) lines.push('Меня зовут '+name+'.');
+      if(situation) lines.push('Моя ситуация: '+situation);
+      var link=document.createElement('a');
+      link.href=f.action+'?text='+encodeURIComponent(lines.join('\n\n'));
+      link.target='_blank';
+      link.rel='noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     });
   });
 })();
