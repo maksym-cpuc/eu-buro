@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Собирает страницы Nexora из общих шапки, меню и подвала. Запуск: python3 build.py"""
 from pathlib import Path
+from html import escape
+from html.parser import HTMLParser
+import re
+from translations import EN
 
 ROOT = Path(__file__).parent
 BRAND = "Nexora"
@@ -19,6 +23,9 @@ HEAD = """<!doctype html>
 <title>{title} — {brand}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canonical}">
+<link rel="alternate" hreflang="ru" href="{ru_url}">
+<link rel="alternate" hreflang="en" href="{en_url}">
+<link rel="alternate" hreflang="x-default" href="{ru_url}">
 <meta name="theme-color" content="#0E0F13">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="{title} — {brand}">
@@ -30,13 +37,13 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="assets/style.css?v=live-1">
+<link rel="stylesheet" href="assets/style.css?v=lang-1">
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="index.html"><i></i>{brand}</a>
-    <div class="lang" aria-label="Общаемся по-русски и по-испански"><span>RU / ES</span></div>
+    {language_switch}
     <a class="ico" href="{tg_url}" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">✈</a>
     <a class="ico" href="{wa_url}" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp">☏</a>
     <a class="btn sm" href="contacts.html#form">Подобрать ВНЖ</a>
@@ -68,7 +75,7 @@ FOOT = """</main>
     <div style="display:grid;gap:8px"><a href="{tg_url}" target="_blank" rel="noopener noreferrer">Telegram {tg}</a><a href="{wa_url}" target="_blank" rel="noopener noreferrer">WhatsApp {wa}</a></div>
   </div>
 </footer>
-<script src="assets/main.js?v=live-1"></script>
+<script src="assets/main.js?v=lang-1"></script>
 </body>
 </html>
 """
@@ -349,11 +356,83 @@ CONTACTS = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> 
 """
 
 
+class EnglishPage(HTMLParser):
+    """Translate text and accessible labels while preserving the shared layout."""
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.parts = []
+
+    @staticmethod
+    def translate(value):
+        text = value.strip()
+        if text in EN:
+            return value.replace(text, EN[text], 1)
+        if re.search('[А-Яа-яЁё]', text):
+            raise ValueError(f'Missing English translation: {text}')
+        return value
+
+    def handle_starttag(self, tag, attrs):
+        converted = []
+        for key, value in attrs:
+            if value is not None:
+                if key in ('content', 'aria-label', 'placeholder', 'title'):
+                    value = self.translate(value)
+                if tag == 'html' and key == 'lang':
+                    value = 'en'
+                if key == 'content' and value == 'ru_RU':
+                    value = 'en_GB'
+                if key in ('src', 'href') and value.startswith('assets/'):
+                    value = '../' + value
+                if key == 'srcset':
+                    value = ', '.join('../' + part.strip() if part.strip().startswith('assets/') else part.strip() for part in value.split(','))
+            converted.append(key if value is None else f'{key}="{escape(value, quote=True)}"')
+        self.parts.append('<' + tag + (' ' if converted else '') + ' '.join(converted) + '>')
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        self.parts[-1] = self.parts[-1][:-1] + '/>'
+
+    def handle_endtag(self, tag):
+        self.parts.append(f'</{tag}>')
+
+    def handle_data(self, data):
+        self.parts.append(escape(self.translate(data), quote=False))
+
+    def handle_decl(self, decl):
+        self.parts.append(f'<!{decl}>')
+
+    def handle_entityref(self, name):
+        self.parts.append(f'&{name};')
+
+    def handle_charref(self, name):
+        self.parts.append(f'&#{name};')
+
+    def handle_comment(self, data):
+        self.parts.append(f'<!--{data}-->')
+
+
 def page(name, title, desc, body, form_prefix):
     contact = dict(brand=BRAND, tg=TG, tg_url=TG_URL, wa=WA, wa_url=WA_URL)
-    canonical = DOMAIN + ("/" if name == "index.html" else "/" + name)
-    html = HEAD.format(title=title, desc=desc, canonical=canonical, **contact) + body + FORM.format(p=form_prefix, **contact) + FOOT.format(**contact)
-    (ROOT / name).write_text(html, encoding="utf-8")
+    ru_path = "/" if name == "index.html" else "/" + name
+    en_path = "/en/" if name == "index.html" else "/en/" + name
+    for language in ('ru', 'en'):
+        links = []
+        for code, path in [('ru', ru_path), ('en', en_path)]:
+            active = ' class="on" aria-current="true"' if language == code else ''
+            # Native language names remain understandable on both versions.
+            links.append(f'<a href="{path}" lang="{code}" hreflang="{code}" data-language="{code}"{active}>{code.upper()}</a>')
+        switch = '<nav class="lang" aria-label="Выбор языка">' + ''.join(links) + '</nav>'
+        canonical = DOMAIN + (en_path if language == 'en' else ru_path)
+        html = HEAD.format(title=title, desc=desc, canonical=canonical, ru_url=DOMAIN + ru_path, en_url=DOMAIN + en_path, language_switch=switch, **contact) + body + FORM.format(p=form_prefix, **contact) + FOOT.format(**contact)
+        directory = ROOT
+        if language == 'en':
+            translated = EnglishPage()
+            translated.feed(html)
+            translated.close()
+            html = ''.join(translated.parts)
+            directory = ROOT / 'en'
+            directory.mkdir(exist_ok=True)
+        (directory / name).write_text(html, encoding="utf-8")
 
 
 page("index.html", "ВНЖ и гражданство в Европе", "Подбор ВНЖ, накопление срока, досье, экзамены и подача на гражданство во всех странах Европы.", INDEX, "i")
@@ -362,5 +441,6 @@ page("about.html", "О бюро", "Кто мы, принципы и порядо
 page("contacts.html", "Контакты бюро", "Свяжитесь с Nexora через Telegram или WhatsApp для бесплатного разбора вашей ситуации.", CONTACTS, "c")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
 urls = [DOMAIN + suffix for suffix in ["/", "/services.html", "/about.html", "/contacts.html"]]
+urls += [DOMAIN + suffix for suffix in ["/en/", "/en/services.html", "/en/about.html", "/en/contacts.html"]]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{url}</loc></url>\n" for url in urls) + "</urlset>\n", encoding="utf-8")
 print("ok")

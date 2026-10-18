@@ -1,6 +1,17 @@
 (function(){
   document.documentElement.classList.add('js');
 
+  // Each language has its own URLs, so navigation and reloads keep the selection.
+  document.querySelectorAll('[data-language]').forEach(function(link){
+    function preserveSection(){
+      var url=new URL(link.href);
+      url.hash=location.hash;
+      link.href=url.href;
+    }
+    preserveSection();
+    addEventListener('hashchange',preserveSection);
+  });
+
   // меню (три полоски)
   var menu=document.querySelector('.menu'),open=document.querySelector('.burger'),close=document.querySelector('.menu-close');
   function setMenu(on){menu.hidden=!on;document.body.style.overflow=on?'hidden':'';open.setAttribute('aria-expanded',on)}
@@ -23,9 +34,10 @@
       e.preventDefault();
       var name=f.elements.name.value.trim();
       var situation=f.elements.situation.value.trim();
-      var lines=['Здравствуйте! Хочу получить бесплатный разбор в Nexora.'];
-      if(name) lines.push('Меня зовут '+name+'.');
-      if(situation) lines.push('Моя ситуация: '+situation);
+      var english=document.documentElement.lang==='en';
+      var lines=[english ? 'Hello! I would like a free assessment from Nexora.' : 'Здравствуйте! Хочу получить бесплатный разбор в Nexora.'];
+      if(name) lines.push((english ? 'My name is ' : 'Меня зовут ')+name+'.');
+      if(situation) lines.push((english ? 'My situation: ' : 'Моя ситуация: ')+situation);
       var link=document.createElement('a');
       link.href=f.action+'?text='+encodeURIComponent(lines.join('\n\n'));
       link.target='_blank';
