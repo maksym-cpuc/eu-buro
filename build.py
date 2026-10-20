@@ -37,7 +37,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-<link rel="stylesheet" href="assets/style.css?v=lang-1">
+<link rel="stylesheet" href="assets/style.css?v=destinations-1">
 </head>
 <body>
 <header class="top">
@@ -53,7 +53,7 @@ HEAD = """<!doctype html>
 <div class="menu" hidden>
   <nav class="menu-panel" aria-label="Меню">
     <div class="menu-head"><span class="logo"><i></i>{brand}</span><button class="menu-close" type="button" aria-label="Закрыть">×</button></div>
-    <a class="item" href="services.html"><span>Услуги ВНЖ<small>По всем странам Европы</small></span>→</a>
+    <a class="item" href="services.html"><span>Визы и ВНЖ<small>Европа, США и индивидуальные запросы</small></span>→</a>
     <a class="item" href="about.html"><span>О бюро<small>Кто мы и как работаем</small></span>→</a>
     <a class="item" href="contacts.html"><span>Контакты<small>Telegram и WhatsApp</small></span>→</a>
     <div class="menu-foot">
@@ -70,8 +70,8 @@ HEAD = """<!doctype html>
 FOOT = """</main>
 <footer>
   <div class="wrap">
-    <div style="display:grid;gap:10px"><span class="logo"><i></i>{brand}</span><span>Сопровождение от первого ВНЖ до гражданства в странах Европы. Работаем дистанционно.</span><span>DANA LEGAL CONSULTING S.L. · NIF B09790213</span><span>Avenida Cánovas del Castillo, 14, 1º derecha, Marbella</span></div>
-    <nav><a href="services.html">Услуги ВНЖ</a><a href="about.html">О бюро</a><a href="contacts.html">Контакты</a></nav>
+    <div style="display:grid;gap:10px"><span class="logo"><i></i>{brand}</span><span>Визы, ВНЖ и иммиграционные вопросы по Европе и США. Индивидуальные запросы разбираем отдельно. Работаем дистанционно.</span><span>DANA LEGAL CONSULTING S.L. · NIF B09790213</span><span>Avenida Cánovas del Castillo, 14, 1º derecha, Marbella</span></div>
+    <nav><a href="services.html">Визы и ВНЖ</a><a href="about.html">О бюро</a><a href="contacts.html">Контакты</a></nav>
     <div style="display:grid;gap:8px"><a href="{tg_url}" target="_blank" rel="noopener noreferrer">Telegram {tg}</a><a href="{wa_url}" target="_blank" rel="noopener noreferrer">WhatsApp {wa}</a></div>
   </div>
 </footer>
@@ -112,8 +112,12 @@ PATH = """<ol class="path">
   <li class="rv"><h3>Подача на гражданство</h3><p>Подаём заявление, отвечаем на запросы ведомства и ведём дело до решения.</p></li>
 </ol>"""
 
-COUNTRIES = [("es","Испания"),("pt","Португалия"),("it","Италия"),("fr","Франция"),("de","Германия"),("nl","Нидерланды"),("at","Австрия"),("gr","Греция"),("cy","Кипр"),("mt","Мальта"),("hr","Хорватия"),("sk","Словакия"),("cz","Чехия"),("pl","Польша"),("hu","Венгрия"),("me","Черногория"),("rs","Сербия")]
+COUNTRIES = [("es","Испания"),("us","США"),("pt","Португалия"),("it","Италия"),("fr","Франция"),("de","Германия"),("nl","Нидерланды"),("at","Австрия"),("gr","Греция"),("cy","Кипр"),("mt","Мальта"),("hr","Хорватия"),("sk","Словакия"),("cz","Чехия"),("pl","Польша"),("hu","Венгрия"),("me","Черногория"),("rs","Сербия")]
 COUNTRY_GRID = '<div class="countries rv">' + "".join(f'<a class="country" href="services.html#countries"><span class="fl fi fi-{f}"></span>{n}</a>' for f, n in COUNTRIES) + '<a class="country more" href="contacts.html#form"><span class="fl plus">+</span>Другие страны</a></div>'
+INDIVIDUAL_REQUEST = """<div class="country-request rv">
+  <div><h3>Другая страна или <em>нестандартная ситуация?</em></h3><p>Не нашли нужное направление? Напишите нам с любым индивидуальным запросом по визам, ВНЖ или переезду. Поможем разобраться в вашей ситуации, оценить возможные варианты и понять, с чего начать.</p></div>
+  <a class="btn ghost" href="contacts.html#form">Обсудить мой случай</a>
+</div>"""
 
 PAY = """<div class="pay">
   <div class="rv"><small>Этап 1 · старт</small><b>50%</b><p class="muted">Берём дело в работу: стратегия, расчёт требований, список документов.</p></div>
@@ -134,7 +138,7 @@ INDEX = f"""<script defer src="assets/hero-motion.js?v=docs-1"></script>
 <section class="hero hero-portrait">
   <div class="wrap hero-layout">
     <div class="hero-copy">
-    <span class="badge"><i></i>ВНЖ и гражданство в странах Европы</span>
+    <span class="badge"><i></i>Визы и ВНЖ · Европа и США</span>
     <h1>От первого ВНЖ до паспорта Европы, <em>даже в сложных случаях</em></h1>
     <p class="lead">Подбираем страну и основание для ВНЖ, помогаем накопить нужный срок проживания, собираем досье, готовим к экзаменам и подаём на гражданство. Работаем дистанционно с клиентами по всему миру.</p>
     <div class="actions"><a class="btn" href="contacts.html#form">Подобрать ВНЖ бесплатно</a><a class="btn ghost" href="services.html">Все услуги</a></div>
@@ -183,8 +187,9 @@ INDEX = f"""<script defer src="assets/hero-motion.js?v=docs-1"></script>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><h2>Работаем по всем <em>странам Европы</em></h2><p>Не привязаны к одной стране. Если в одной требования не подходят, сравним условия соседних и предложим путь надёжнее.</p></div>
+    <div class="head rv"><h2>Визы и ВНЖ <em>в Европе и США</em></h2><p>Помогаем с визовыми и иммиграционными вопросами по странам Европы и США. Сравниваем направления и разбираем доступные варианты с учётом ваших целей, гражданства, работы и семьи.</p></div>
     {COUNTRY_GRID}
+    {INDIVIDUAL_REQUEST}
   </div>
 </section>
 
@@ -231,12 +236,12 @@ INDEX = f"""<script defer src="assets/hero-motion.js?v=docs-1"></script>
 </section>
 """
 
-SERVICES = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> · Услуги ВНЖ</div>
+SERVICES = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> · Визы и ВНЖ</div>
 <section class="hero" style="padding-top:28px">
   <div class="wrap">
-    <span class="eyebrow">Услуги ВНЖ</span>
-    <h1>ВНЖ и гражданство <em>во всех странах Европы</em></h1>
-    <p class="lead">Ведём весь путь: от подбора ВНЖ и накопления срока проживания до подготовки досье, экзаменов и подачи заявления на гражданство. Можно подключиться на любом этапе.</p>
+    <span class="eyebrow">Визы и ВНЖ</span>
+    <h1>Визы, ВНЖ и переезд <em>в Европу и США</em></h1>
+    <p class="lead">В Европе сопровождаем путь от первого ВНЖ до подачи на гражданство. По США помогаем разобраться в визовых и иммиграционных вопросах. Направление и объём помощи определяем после индивидуального разбора вашей ситуации.</p>
     <div class="actions"><a class="btn" href="contacts.html#form">Подобрать ВНЖ бесплатно</a></div>
   </div>
 </section>
@@ -256,8 +261,9 @@ SERVICES = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> 
 
 <section style="padding-top:0" id="countries">
   <div class="wrap">
-    <div class="head rv"><span class="eyebrow">Страны</span><h2>Выберите страну <em>или доверьте выбор нам</em></h2><p>Требования, сроки до гражданства и экзамены в каждой стране свои. На разборе сравним подходящие варианты.</p></div>
+    <div class="head rv"><span class="eyebrow">Страны</span><h2>Европа, США <em>и ваш индивидуальный запрос</em></h2><p>Требования к визам, проживанию и документам зависят от страны и цели поездки. На разборе сравним подходящие варианты и обсудим ваш следующий шаг.</p></div>
     {COUNTRY_GRID}
+    {INDIVIDUAL_REQUEST}
   </div>
 </section>
 
@@ -301,7 +307,7 @@ ABOUT = f"""<div class="wrap crumbs"><a href="index.html">Главная</a> · 
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head rv"><h2>Чем мы <em>занимаемся</em></h2><p>Иммиграционное сопровождение по действующим законным основаниям в странах Европы.</p></div>
+    <div class="head rv"><h2>Чем мы <em>занимаемся</em></h2><p>Помогаем с визами, ВНЖ и иммиграционными вопросами по Европе и США. Другие направления и нестандартные ситуации рассматриваем индивидуально.</p></div>
     {PATH}
   </div>
 </section>
@@ -435,8 +441,8 @@ def page(name, title, desc, body, form_prefix):
         (directory / name).write_text(html, encoding="utf-8")
 
 
-page("index.html", "ВНЖ и гражданство в Европе", "Подбор ВНЖ, накопление срока, досье, экзамены и подача на гражданство во всех странах Европы.", INDEX, "i")
-page("services.html", "Услуги ВНЖ в Европе", "Полный путь от ВНЖ до гражданства в странах Европы.", SERVICES, "s")
+page("index.html", "Визы и ВНЖ в Европе и США", "Визы, ВНЖ и иммиграционные вопросы по Европе и США. Сопровождение до гражданства в Европе и разбор индивидуальных запросов.", INDEX, "i")
+page("services.html", "Визы, ВНЖ и переезд в Европу и США", "Помощь с визами и ВНЖ в Европе, визовыми и иммиграционными вопросами по США. Другие направления и сложные случаи разбираем индивидуально.", SERVICES, "s")
 page("about.html", "О бюро", "Кто мы, принципы и порядок работы.", ABOUT, "a")
 page("contacts.html", "Контакты бюро", "Свяжитесь с Nexora через Telegram или WhatsApp для бесплатного разбора вашей ситуации.", CONTACTS, "c")
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n", encoding="utf-8")
